@@ -5,7 +5,7 @@
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 <meta charset="UTF-8">
 <script>
-function create () {
+function show () {
         $.ajax({
             url:"contact.php",
             type: "GET",
@@ -23,8 +23,22 @@ function create () {
 				}
             }
         });
-    }
-window.onload = create;
+}
+	
+function create () {
+	var name=$("#name").val();
+	var number=$("#number").val();
+	$.ajax({
+		url: "contact.php",
+		type: "POST",
+		data:  {name:name, number:number},
+		success:function(result){
+			alert(result);
+		}
+		
+	});
+}
+window.onload = show;
 </script>
 </head>
 <body>
@@ -39,7 +53,7 @@ window.onload = create;
 		<input type="text" class="form-control" placeholder="Номер" id="number">
 		</div>
 	</div>
-	<button type="submit" class="btn btn-primary">Добавить</button>
+	<button type="submit" class="btn btn-primary" id="add" onclick="create();">Добавить</button>
 </form>
 </div>
 </div>
