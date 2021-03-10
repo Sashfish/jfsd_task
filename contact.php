@@ -13,7 +13,7 @@ if(isset($_POST['name']) && isset($_POST['number'])) {
 	$number = $_POST['number'];
 	$conn2 = new PDO($dsn, $user, $pass);
 	$stmt = $conn2 -> prepare('INSERT INTO contact (name, number) VALUES (?, ?)');
-	$stmt ->execute([$name, $number]);
+	$stmt -> execute([$name, $number]);
 	$conn2 = null;
 	}
 	elseif ($_POST['action'] == 'delete') {
@@ -21,7 +21,7 @@ if(isset($_POST['name']) && isset($_POST['number'])) {
 		$number = $_POST['number'];
 		$conn2 = new PDO($dsn, $user, $pass);
 		$stmt = $conn2 -> prepare('DELETE FROM contact WHERE name = ? AND number = ?');
-		$stmt ->execute([$name, $number]);
+		$stmt -> execute([$name, $number]);
 		$conn2 = null;
 	}
 }
