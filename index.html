@@ -39,32 +39,31 @@ function show () {
 				var json = JSON.parse(result);
 				for(var i = 0; i < json.length; i++) {
 					var obj = json[i];
-					var str = "<li class=\"list-group-item\">" + obj.name + "<button" + " id=\"but" + (i+1) + "\" " + "class=\"btn btn-sm\"><i class=\"bi bi-x\"></i></button>" +"<br>" + "<p class=\"text-muted\">" + obj.number + "</p></li>";
+					var str = "<li class=\"list-group-item\">" + obj.name + "<button" + " onclick=\"" + "delNumber(\'" + obj.name +"\'" + ", " + "\'" + obj.number + "\');\"" + " id=\"but" + (i+1) + "\" " + "class=\"btn btn-sm\"><i class=\"bi bi-x\"></i></button>" +"<br>" + "<p class=\"text-muted\">" + obj.number + "</p></li>";
 					$("#list").append(str);
 				}
             }
         });
 }
 
-function addXbuttons () {
-	var btn = $('#contacts button');
-	console.log(btn[0]['id']);
-	for(var j=0; j<btn.length; j++){
-		var select = btn[j]['id'];
-		console.log(select);
-		var button = document.getElementById(select);
-		console.log(button);
-		button.addEventListener("click", function (e) {
-		e.preventDefault();
-		alert("button " +j +"clicked");
-		});
-	}
+function delNumber (name, number) {
+	$.ajax({
+		type: "POST",
+		url: "contact.php",
+		dataType: "json",
+		data: {name: name, number: number, action: "delete"},
+		success: function(result){
+			console.log(result);
+			location.reload();
+		},
+		error: function(xhr, status, error){
+		console.error(xhr);
+		}
+	});
 }
 
 window.onload = show();
-setTimeout(function (){
-  addXbuttons();
-}, 1000);
+
 </script>
 </head>
 <body>
